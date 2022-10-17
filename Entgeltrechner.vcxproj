@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="3rdparty\sqlite3\sqlite3.c" />
     <ClCompile Include="src\Core\AbstractApplication.cpp" />
     <ClCompile Include="src\Core\EntgeltrechnerApplication.cpp" />
     <ClCompile Include="src\Core\DebugBuildEntryPoint.cpp" />
@@ -164,13 +165,18 @@
     <ClCompile Include="src\Core\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3rdparty\sqlite3\sqlite3.h" />
+    <ClInclude Include="3rdparty\sqlite3\sqlite3ext.h" />
     <ClInclude Include="assets\resource.h" />
+    <ClInclude Include="src\Hibernations\Exceptions.h" />
+    <ClInclude Include="src\Hibernations\AbstractHibernation.h" />
+    <ClInclude Include="src\Models\InsurancePercentage.h" />
+    <ClInclude Include="src\Hibernations\InsurancePercentageHibernation.h" />
     <ClInclude Include="src\Core\AbstractApplication.h" />
     <ClInclude Include="src\Core\EntgeltrechnerApplication.h" />
     <ClInclude Include="src\Core\Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="App.ico" />
     <Image Include="assets\App.ico" />
   </ItemGroup>
   <ItemGroup>

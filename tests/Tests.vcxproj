@@ -173,8 +173,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\3rdparty\sqlite3\sqlite3.c" />
     <ClCompile Include="AbstractApplicationTests.cpp" />
+    <ClCompile Include="InsurancePercentageHibernationTests.cpp" />
     <ClCompile Include="UtilsTests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\3rdparty\sqlite3\sqlite3.h" />
+    <ClInclude Include="..\3rdparty\sqlite3\sqlite3ext.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

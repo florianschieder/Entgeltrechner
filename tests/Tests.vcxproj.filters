@@ -5,6 +5,15 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Hibernations">
+      <UniqueIdentifier>{b44a4679-96d1-46f6-96f7-e7ecf5ae85bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdparty">
+      <UniqueIdentifier>{15487ade-d9d8-4788-a89f-da38274cc9a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdparty\SQLite">
+      <UniqueIdentifier>{13082203-0761-4148-a2f8-8ab09273b20b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UtilsTests.cpp">
@@ -13,5 +22,19 @@
     <ClCompile Include="AbstractApplicationTests.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\3rdparty\sqlite3\sqlite3.c">
+      <Filter>3rdparty\SQLite</Filter>
+    </ClCompile>
+    <ClCompile Include="InsurancePercentageHibernationTests.cpp">
+      <Filter>Hibernations</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\3rdparty\sqlite3\sqlite3.h">
+      <Filter>3rdparty\SQLite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdparty\sqlite3\sqlite3ext.h">
+      <Filter>3rdparty\SQLite</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
