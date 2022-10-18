@@ -13,7 +13,7 @@ class EntgeltrechnerApplication
 {
 public:
     EntgeltrechnerApplication(const HINSTANCE& hInstance);
-    int run();
+    int run() override;
 
 private:
     sqlite3 *dbHandle;

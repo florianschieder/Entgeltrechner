@@ -29,7 +29,7 @@ public:
 
     std::vector<InsurancePercentage> loadMany(
         const InsurancePercentageFilters& filters
-    )
+    ) override
     {
         const auto baseStmt = "\
             SELECT `type`, `employerShare`, `employeeShare`, `year` \
@@ -104,7 +104,7 @@ public:
         return resultSet;
     }
 
-    void save(const InsurancePercentage& instance)
+    void save(const InsurancePercentage& instance) override
     {
         const auto baseStmt = "\
         INSERT INTO `insurance_percentage` \
