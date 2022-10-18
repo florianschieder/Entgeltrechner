@@ -73,7 +73,7 @@ public:
         std::vector<InsurancePercentage> resultSet;
 
         // TODO benchmark SELECT COUNT(*) + allocating vs. one-query + push_back()
-        auto result = sqlite3_exec(
+        const auto result = sqlite3_exec(
             this->dbHandle,
             fullStmt.c_str(),
             [](void* userData, int argc, char** argv, char** azColName) -> int {
@@ -126,7 +126,7 @@ public:
         );
 
         char* errorMessage;
-        auto result = sqlite3_exec(
+        const auto result = sqlite3_exec(
             this->dbHandle,
             fullStmt.c_str(),
             [](void*, int, char**, char**) -> int {
@@ -162,7 +162,7 @@ private:
         ";
 
         char* errorMessage;
-        auto result = sqlite3_exec(
+        const auto result = sqlite3_exec(
             this->dbHandle,
             stmt,
             [](void*, int, char**, char**) -> int {

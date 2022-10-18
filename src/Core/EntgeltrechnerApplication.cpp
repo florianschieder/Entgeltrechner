@@ -26,7 +26,7 @@ EntgeltrechnerApplication::EntgeltrechnerApplication(
         FinalizeExceptionMode::MESSAGE_BOX
     )
 {
-    auto result = sqlite3_open("foo.db", &this->dbHandle);
+    const auto result = sqlite3_open("foo.db", &this->dbHandle);
 
     if (result != SQLITE_OK) {
         this->finalizeException(
@@ -40,7 +40,7 @@ EntgeltrechnerApplication::EntgeltrechnerApplication(
 
 int EntgeltrechnerApplication::run()
 {
-    auto hibernation = InsurancePercentageHibernation(this->dbHandle);
+    const auto hibernation = InsurancePercentageHibernation(this->dbHandle);
 
     return EXIT_SUCCESS;
 }
