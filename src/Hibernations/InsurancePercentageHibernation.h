@@ -125,7 +125,7 @@ public:
             instance.employeeShare
         );
 
-        char* errorMessage;
+        char* errorMessage = nullptr;
         const auto result = sqlite3_exec(
             this->dbHandle,
             fullStmt.c_str(),
@@ -161,7 +161,7 @@ private:
             ); \
         ";
 
-        char* errorMessage;
+        char* errorMessage = nullptr;
         const auto result = sqlite3_exec(
             this->dbHandle,
             stmt,
