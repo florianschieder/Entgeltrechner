@@ -1,6 +1,7 @@
 #ifndef HIBERNATIONS_INSURANCE_PERCENTAGE_H_
 #define HIBERNATIONS_INSURANCE_PERCENTAGE_H_
 
+#include <cassert>
 #include <optional>
 
 #include "AbstractHibernation.h"
@@ -80,6 +81,9 @@ public:
                 auto resultSet = static_cast<std::vector<InsurancePercentage>*>(
                     userData
                 );
+                assert(resultSet != nullptr);
+                assert(argv != nullptr);
+
                 InsurancePercentage record = {
                     static_cast<InsuranceType>(std::atoi(argv[0])),
                     std::atof(argv[1]),
