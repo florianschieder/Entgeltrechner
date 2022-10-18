@@ -81,7 +81,7 @@ public:
                     userData
                 );
                 InsurancePercentage record = {
-                    (InsuranceType)std::atoi(argv[0]),
+                    static_cast<InsuranceType>(std::atoi(argv[0])),
                     std::atof(argv[1]),
                     std::atof(argv[2]),
                     std::atoi(argv[3]),
