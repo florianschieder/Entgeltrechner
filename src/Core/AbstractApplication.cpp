@@ -70,7 +70,9 @@ void AbstractApplication::finalizeException(const std::exception& exc)
     }
 }
 
-UINT AbstractApplication::spawnMessageBox(const std::wstring& text, UINT mode)
+UINT AbstractApplication::spawnMessageBox(
+    const std::wstring& text, UINT mode
+) noexcept(true)
 {
     return MessageBox(this->parentWindow,
                       text.c_str(),

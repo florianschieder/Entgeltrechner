@@ -23,7 +23,7 @@ public:
         const FinalizeExceptionMode finalizeExceptionMode
     ) noexcept(true);
 
-    UINT spawnMessageBox(const std::wstring& text, UINT mode);
+    UINT spawnMessageBox(const std::wstring& text, UINT mode) noexcept(true);
     int start() noexcept(true);
 
 protected:
