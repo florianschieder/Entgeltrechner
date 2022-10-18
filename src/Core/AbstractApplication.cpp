@@ -56,9 +56,11 @@ void AbstractApplication::finalizeException(const std::exception& exc)
     {
         case FinalizeExceptionMode::MESSAGE_BOX:
             this->spawnMessageBox(
-                std::format(L"{} crashed: {}",
+                std::format(
+                    L"{} crashed: {}",
                     this->appName,
-                    ansiToWideString(exc.what())).c_str(),
+                    ansiToWideString(exc.what())
+                ).c_str(),
                 MB_OK | MB_ICONERROR);
             break;
 
