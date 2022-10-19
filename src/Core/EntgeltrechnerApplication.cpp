@@ -41,6 +41,5 @@ EntgeltrechnerApplication::EntgeltrechnerApplication(
 int EntgeltrechnerApplication::run()
 {
     const auto hibernation = InsurancePercentageHibernation(this->dbHandle);
-
     return EXIT_SUCCESS;
 }

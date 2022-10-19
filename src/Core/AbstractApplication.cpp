@@ -55,15 +55,25 @@ void AbstractApplication::finalizeException(const std::exception& exc)
     switch (this->finalizeExceptionMode)
     {
         case FinalizeExceptionMode::MESSAGE_BOX:
-            this->spawnMessageBox(
-                std::format(
+        {
+            std::wstring errMsg{};
+
+            try {
+                errMsg = std::format(
                     L"{} crashed: {}",
                     this->appName,
                     ansiToWideString(exc.what())
-                ).c_str(),
+                );
+            }
+            catch (...) {
+                errMsg = L"unexpected error";
+            }
+
+            this->spawnMessageBox(
+                errMsg,
                 MB_OK | MB_ICONERROR);
             break;
-
+        }
         case FinalizeExceptionMode::NOTHING:
         default:
             break;
