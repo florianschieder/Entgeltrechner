@@ -3,9 +3,9 @@
 
 #include <memory>
 
-#include "AbstractApplication.h"
+#include <sqlite3/sqlite3.h>
 
-#include "../../3rdparty/sqlite3/sqlite3.h"
+#include "AbstractApplication.h"
 
 
 class EntgeltrechnerApplication

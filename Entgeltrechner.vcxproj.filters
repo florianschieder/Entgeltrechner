@@ -11,12 +11,6 @@
     <Filter Include="Hibernations">
       <UniqueIdentifier>{ceab4213-32dd-4468-bbcd-c2f5a214f8f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3rdparty">
-      <UniqueIdentifier>{2cd4936d-ac0f-4308-9c96-d36963dc148b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3rdparty\SQLite">
-      <UniqueIdentifier>{8c1369fc-49a3-42cc-955b-0db461e6f269}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Models">
       <UniqueIdentifier>{970305fc-ba31-4817-90ce-9a58929071d7}</UniqueIdentifier>
     </Filter>
@@ -37,9 +31,6 @@
     <ClCompile Include="src\Core\Utils.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="3rdparty\sqlite3\sqlite3.c">
-      <Filter>3rdparty\SQLite</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\AbstractApplication.h">
@@ -53,12 +44,6 @@
     </ClInclude>
     <ClInclude Include="assets\resource.h">
       <Filter>Assets</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdparty\sqlite3\sqlite3.h">
-      <Filter>3rdparty\SQLite</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdparty\sqlite3\sqlite3ext.h">
-      <Filter>3rdparty\SQLite</Filter>
     </ClInclude>
     <ClInclude Include="src\Hibernations\InsurancePercentageHibernation.h">
       <Filter>Hibernations</Filter>

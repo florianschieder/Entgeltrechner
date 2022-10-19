@@ -4,9 +4,9 @@
 #include <format>
 #include <vector>
 
-#include "Exceptions.h"
-#include "../../3rdparty/sqlite3/sqlite3.h"
+#include <sqlite3/sqlite3.h>
 
+#include "Exceptions.h"
 
 template <typename Model, typename Filters>
 class AbstractHibernation

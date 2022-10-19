@@ -7,7 +7,7 @@
 #include "AbstractHibernation.h"
 #include "../Models/InsurancePercentage.h"
 
-#include "../../3rdparty/sqlite3/sqlite3.h"
+#include <sqlite3/sqlite3.h>
 
 
 struct InsurancePercentageFilters
