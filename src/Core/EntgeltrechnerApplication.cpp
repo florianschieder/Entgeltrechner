@@ -4,7 +4,8 @@
 #include "../Hibernations/InsurancePercentageHibernation.h"
 #include "EntgeltrechnerApplication.h"
 
-// TODO irgendwo anders hin damit
+// TODO irgendwo anders hin damit, wenn die SQLite-Aufrufe vernünftig
+// abstrahiert wurden
 class CouldNotOpenSQLiteDatabaseException : public std::exception
 {
 public:
@@ -21,6 +22,7 @@ EntgeltrechnerApplication::EntgeltrechnerApplication(const HINSTANCE &hInstance)
                           L"Entgeltrechner",
                           FinalizeExceptionMode::MESSAGE_BOX)
 {
+    // TODO: Datenspeicherort konfigurierbar machen
     const auto result = sqlite3_open("foo.db", &this->dbHandle);
 
     if (result != SQLITE_OK) {
