@@ -17,20 +17,19 @@ public:
         this->dbHandle = dbHandle;
     }
 
-    Model loadOne(const Filters& filters)
+    Model loadOne(const Filters &filters)
     {
         auto result = this->loadMany(filters);
-        if (result.size() != 1)
-        {
+        if (result.size() != 1) {
             throw MultipleObjectsReturnedException(result.size());
         }
         return result[0];
     }
-    virtual std::vector<Model> loadMany(const Filters& filters) = 0;
-    virtual void save(const Model& instance) = 0;
+    virtual std::vector<Model> loadMany(const Filters &filters) = 0;
+    virtual void save(const Model &instance) = 0;
 
 protected:
     sqlite3 *dbHandle;
 };
 
-#endif  // HIBERNATIONS_ABSTRACT_HIBERNATION_H_
+#endif // HIBERNATIONS_ABSTRACT_HIBERNATION_H_

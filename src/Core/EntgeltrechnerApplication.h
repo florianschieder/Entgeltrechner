@@ -7,16 +7,14 @@
 
 #include "AbstractApplication.h"
 
-
-class EntgeltrechnerApplication
-    : public AbstractApplication
+class EntgeltrechnerApplication : public AbstractApplication
 {
 public:
-    EntgeltrechnerApplication(const HINSTANCE& hInstance);
+    EntgeltrechnerApplication(const HINSTANCE &hInstance);
     int run() override;
 
 private:
     sqlite3 *dbHandle;
 };
 
-#endif  // CORE_ENTGELTRECHNER_APPLICATION_H
+#endif // CORE_ENTGELTRECHNER_APPLICATION_H

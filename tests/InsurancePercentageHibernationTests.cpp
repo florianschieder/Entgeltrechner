@@ -4,26 +4,25 @@
 
 #include "../src/Hibernations/InsurancePercentageHibernation.h"
 
-
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace EntgeltrechnerTests
 {
-	TEST_CLASS(InsurancePercentageHibernationTests)
-	{
-	private:
-		sqlite3 *dbHandle;
-		InsurancePercentageHibernation* hib;
-		
-	public:
-		TEST_METHOD_INITIALIZE(setUp)
-		{
-			sqlite3_open(":memory:", &this->dbHandle);
-			this->hib = new InsurancePercentageHibernation(this->dbHandle);
+    TEST_CLASS(InsurancePercentageHibernationTests)
+    {
+    private:
+        sqlite3 *dbHandle;
+        InsurancePercentageHibernation *hib;
 
-			auto result = sqlite3_exec(
-				this->dbHandle,
-				"\
+    public:
+        TEST_METHOD_INITIALIZE(setUp)
+        {
+            sqlite3_open(":memory:", &this->dbHandle);
+            this->hib = new InsurancePercentageHibernation(this->dbHandle);
+
+            auto result = sqlite3_exec(
+                this->dbHandle,
+                "\
 				INSERT INTO `insurance_percentage` \
 				  (`type`, `employerShare`, `employeeShare`, `year`) \
 				VALUES \
@@ -44,189 +43,188 @@ namespace EntgeltrechnerTests
 				  (2, 0.37, 0.373, 2022), \
 				  (3, 0.38, 0.384, 2022), \
 				  (4, 0.39, 0.395, 2022);",
-				[](void*, int, char**, char**) -> int { return 0; },
-				NULL,
-				NULL);
-			auto msg = sqlite3_errmsg(this->dbHandle);
-			Assert::AreEqual(SQLITE_OK, result);
-		}
+                [](void *, int, char **, char **) -> int { return 0; },
+                NULL,
+                NULL);
+            auto msg = sqlite3_errmsg(this->dbHandle);
+            Assert::AreEqual(SQLITE_OK, result);
+        }
 
-		TEST_METHOD_CLEANUP(tearDown)
-		{
-			sqlite3_close(this->dbHandle);
-			delete this->hib;
-		}
+        TEST_METHOD_CLEANUP(tearDown)
+        {
+            sqlite3_close(this->dbHandle);
+            delete this->hib;
+        }
 
-		TEST_METHOD(testEmptyResultSet)
-		{
-			InsurancePercentageFilters filters = { 2019, std::nullopt };
-			Assert::AreEqual(static_cast<size_t>(0),
-							 this->hib->loadMany(filters).size());
-		}
+        TEST_METHOD(testEmptyResultSet)
+        {
+            InsurancePercentageFilters filters = {2019, std::nullopt};
+            Assert::AreEqual(static_cast<size_t>(0),
+                             this->hib->loadMany(filters).size());
+        }
 
-		TEST_METHOD(testBreaksOnInsufficientFilters)
-		{
-			InsurancePercentageFilters filters = { std::nullopt, std::nullopt };
+        TEST_METHOD(testBreaksOnInsufficientFilters)
+        {
+            InsurancePercentageFilters filters = {std::nullopt, std::nullopt};
 
-			auto raisedException = false;
-			try {
-				this->hib->loadMany(filters);
-			}
-			catch (const InsufficientFiltersException& ex) {
-				UNREFERENCED_PARAMETER(ex);
-				raisedException = true;
-			}
-			Assert::IsTrue(raisedException);
-		}
+            auto raisedException = false;
+            try {
+                this->hib->loadMany(filters);
+            }
+            catch (const InsufficientFiltersException &ex) {
+                UNREFERENCED_PARAMETER(ex);
+                raisedException = true;
+            }
+            Assert::IsTrue(raisedException);
+        }
 
-		TEST_METHOD(testCanFilterByYear)
-		{
-			InsurancePercentageFilters filters = { std::nullopt, std::nullopt };
+        TEST_METHOD(testCanFilterByYear)
+        {
+            InsurancePercentageFilters filters = {std::nullopt, std::nullopt};
 
-			for (const auto& year : { 2020, 2021, 2022 }) {
+            for (const auto &year : {2020, 2021, 2022}) {
 
-				const auto& failureText = std::format(
-					L"failed for year {}", year
-				);
+                const auto &failureText =
+                    std::format(L"failed for year {}", year);
 
-				filters.year = year;
-				auto result = this->hib->loadMany(filters);
-				Assert::AreEqual(
-					static_cast<size_t>(5), result.size(), failureText.c_str()
-				);
+                filters.year = year;
+                auto result = this->hib->loadMany(filters);
+                Assert::AreEqual(static_cast<size_t>(5),
+                                 result.size(),
+                                 failureText.c_str());
 
-				for (const auto& record : result) {
-					Assert::AreEqual(year, record.year);
-				}
-			}
-		}
+                for (const auto &record : result) {
+                    Assert::AreEqual(year, record.year);
+                }
+            }
+        }
 
-		TEST_METHOD(testCanFilterByType)
-		{
-			InsurancePercentageFilters filters = { std::nullopt, std::nullopt };
+        TEST_METHOD(testCanFilterByType)
+        {
+            InsurancePercentageFilters filters = {std::nullopt, std::nullopt};
 
-			auto types = {
-				InsuranceType::ARBEITSLOSENVERSICHERUNG,
-				InsuranceType::KRANKENVERSICHERUNG,
-				InsuranceType::PFLEGEVERSICHERUNG,
-				InsuranceType::RENTENVERSICHERUNG,
-				InsuranceType::UNFALLVERSICHERUNG,
-			};
-			for (const auto& type : types) {
+            auto types = {
+                InsuranceType::ARBEITSLOSENVERSICHERUNG,
+                InsuranceType::KRANKENVERSICHERUNG,
+                InsuranceType::PFLEGEVERSICHERUNG,
+                InsuranceType::RENTENVERSICHERUNG,
+                InsuranceType::UNFALLVERSICHERUNG,
+            };
+            for (const auto &type : types) {
 
-				const auto& failureText = std::format(
-					L"failed for type {}", static_cast<int>(type)
-				);
+                const auto &failureText =
+                    std::format(L"failed for type {}", static_cast<int>(type));
 
-				filters.type = type;
-				auto result = this->hib->loadMany(filters);
-				Assert::AreEqual(
-					static_cast<size_t>(3), result.size(), failureText.c_str()
-				);
+                filters.type = type;
+                auto result = this->hib->loadMany(filters);
+                Assert::AreEqual(static_cast<size_t>(3),
+                                 result.size(),
+                                 failureText.c_str());
 
-				for (const auto& record : result) {
-					Assert::AreEqual(
-						static_cast<int>(type),
-						static_cast<int>(record.type)
-					);
-				}
-			}
-		}
+                for (const auto &record : result) {
+                    Assert::AreEqual(static_cast<int>(type),
+                                     static_cast<int>(record.type));
+                }
+            }
+        }
 
-		TEST_METHOD(testLoadsModel)
-		{
-			InsurancePercentageFilters filters = { 2021, InsuranceType::RENTENVERSICHERUNG};
-			auto result = this->hib->loadMany(filters);
-			Assert::AreEqual(static_cast<size_t>(1), result.size());
+        TEST_METHOD(testLoadsModel)
+        {
+            InsurancePercentageFilters filters = {
+                2021,
+                InsuranceType::RENTENVERSICHERUNG};
+            auto result = this->hib->loadMany(filters);
+            Assert::AreEqual(static_cast<size_t>(1), result.size());
 
-			const auto& item = result[0];
-			Assert::AreEqual(
-				static_cast<int>(InsuranceType::RENTENVERSICHERUNG),
-				static_cast<int>(item.type)
-			);
-			Assert::AreEqual(0.27, item.employerShare);
-			Assert::AreEqual(0.253, item.employeeShare);
-			Assert::AreEqual(2021, item.year);
-		}
+            const auto &item = result[0];
+            Assert::AreEqual(
+                static_cast<int>(InsuranceType::RENTENVERSICHERUNG),
+                static_cast<int>(item.type));
+            Assert::AreEqual(0.27, item.employerShare);
+            Assert::AreEqual(0.253, item.employeeShare);
+            Assert::AreEqual(2021, item.year);
+        }
 
-		TEST_METHOD(testSavesModel)
-		{
-			InsurancePercentageFilters filters = {2025, InsuranceType::RENTENVERSICHERUNG };
-			auto resultBefore = this->hib->loadMany(filters);
-			Assert::AreEqual(static_cast<size_t>(0), resultBefore.size());
+        TEST_METHOD(testSavesModel)
+        {
+            InsurancePercentageFilters filters = {
+                2025,
+                InsuranceType::RENTENVERSICHERUNG};
+            auto resultBefore = this->hib->loadMany(filters);
+            Assert::AreEqual(static_cast<size_t>(0), resultBefore.size());
 
-			InsurancePercentage newItem = {
-				InsuranceType::RENTENVERSICHERUNG,
-				0.1234,
-				0.4321,
-				2025,
-			};
-			this->hib->save(newItem);
+            InsurancePercentage newItem = {
+                InsuranceType::RENTENVERSICHERUNG,
+                0.1234,
+                0.4321,
+                2025,
+            };
+            this->hib->save(newItem);
 
-			auto resultAfter = this->hib->loadMany(filters);
-			Assert::AreEqual(static_cast<size_t>(1), resultAfter.size());
+            auto resultAfter = this->hib->loadMany(filters);
+            Assert::AreEqual(static_cast<size_t>(1), resultAfter.size());
 
-			const auto& item = resultAfter[0];
-			Assert::AreEqual(
-				static_cast<int>(InsuranceType::RENTENVERSICHERUNG),
-				static_cast<int>(item.type)
-			);
-			Assert::AreEqual(0.1234, item.employerShare);
-			Assert::AreEqual(0.4321, item.employeeShare);
-			Assert::AreEqual(2025, item.year);
-		}
+            const auto &item = resultAfter[0];
+            Assert::AreEqual(
+                static_cast<int>(InsuranceType::RENTENVERSICHERUNG),
+                static_cast<int>(item.type));
+            Assert::AreEqual(0.1234, item.employerShare);
+            Assert::AreEqual(0.4321, item.employeeShare);
+            Assert::AreEqual(2025, item.year);
+        }
 
-		TEST_METHOD(testUpdatesModel)
-		{
-			InsurancePercentageFilters filters = { 2021, InsuranceType::RENTENVERSICHERUNG };
-			
-			auto resultBefore = this->hib->loadMany(filters);
-			Assert::AreEqual(static_cast<size_t>(1), resultBefore.size());
+        TEST_METHOD(testUpdatesModel)
+        {
+            InsurancePercentageFilters filters = {
+                2021,
+                InsuranceType::RENTENVERSICHERUNG};
 
-			auto& itemBefore = resultBefore[0];
-			Assert::AreEqual(0.27, itemBefore.employerShare);
-			Assert::AreEqual(0.253, itemBefore.employeeShare);
+            auto resultBefore = this->hib->loadMany(filters);
+            Assert::AreEqual(static_cast<size_t>(1), resultBefore.size());
 
-			itemBefore.employerShare = 0.254;
-			this->hib->save(itemBefore);
+            auto &itemBefore = resultBefore[0];
+            Assert::AreEqual(0.27, itemBefore.employerShare);
+            Assert::AreEqual(0.253, itemBefore.employeeShare);
 
-			auto resultAfter = this->hib->loadMany(filters);
-			Assert::AreEqual(static_cast<size_t>(1), resultAfter.size());
+            itemBefore.employerShare = 0.254;
+            this->hib->save(itemBefore);
 
-			auto& itemAfter = resultAfter[0];
-			Assert::AreEqual(0.254, itemAfter.employerShare);
-			Assert::AreEqual(0.253, itemAfter.employeeShare);
-		}
+            auto resultAfter = this->hib->loadMany(filters);
+            Assert::AreEqual(static_cast<size_t>(1), resultAfter.size());
 
-		TEST_METHOD(testCannotDeliverSingleItemIfThereAreMore)
-		{
-			InsurancePercentageFilters filters = { 2021, std::nullopt };
+            auto &itemAfter = resultAfter[0];
+            Assert::AreEqual(0.254, itemAfter.employerShare);
+            Assert::AreEqual(0.253, itemAfter.employeeShare);
+        }
 
-			auto raisedException = false;
-			try {
-				this->hib->loadOne(filters);
-			}
-			catch (const MultipleObjectsReturnedException& ex) {
-				Assert::AreEqual(
-					"multiple objects returned: 5", ex.what()
-				);
-				raisedException = true;
-			}
-			Assert::IsTrue(raisedException);
-		}
+        TEST_METHOD(testCannotDeliverSingleItemIfThereAreMore)
+        {
+            InsurancePercentageFilters filters = {2021, std::nullopt};
 
-		TEST_METHOD(testLoadsSingleModel)
-		{
-			InsurancePercentageFilters filters = { 2021, InsuranceType::RENTENVERSICHERUNG };
-			auto item = this->hib->loadOne(filters);
+            auto raisedException = false;
+            try {
+                this->hib->loadOne(filters);
+            }
+            catch (const MultipleObjectsReturnedException &ex) {
+                Assert::AreEqual("multiple objects returned: 5", ex.what());
+                raisedException = true;
+            }
+            Assert::IsTrue(raisedException);
+        }
 
-			Assert::AreEqual(
-				static_cast<int>(InsuranceType::RENTENVERSICHERUNG),
-				static_cast<int>(item.type)
-			);
-			Assert::AreEqual(0.27, item.employerShare);
-			Assert::AreEqual(0.253, item.employeeShare);
-			Assert::AreEqual(2021, item.year);
-		}
-	};
+        TEST_METHOD(testLoadsSingleModel)
+        {
+            InsurancePercentageFilters filters = {
+                2021,
+                InsuranceType::RENTENVERSICHERUNG};
+            auto item = this->hib->loadOne(filters);
+
+            Assert::AreEqual(
+                static_cast<int>(InsuranceType::RENTENVERSICHERUNG),
+                static_cast<int>(item.type));
+            Assert::AreEqual(0.27, item.employerShare);
+            Assert::AreEqual(0.253, item.employeeShare);
+            Assert::AreEqual(2021, item.year);
+        }
+    };
 }

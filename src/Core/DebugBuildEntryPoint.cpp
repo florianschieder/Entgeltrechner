@@ -1,7 +1,6 @@
-#if defined(_DEBUG)
-
 #include "EntgeltrechnerApplication.h"
 
+#if defined(_DEBUG)
 
 int wmain()
 {

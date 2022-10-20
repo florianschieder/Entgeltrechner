@@ -5,23 +5,19 @@
 #include "AbstractApplication.h"
 #include "Utils.h"
 
-
 AbstractApplication::AbstractApplication(
-    const HINSTANCE& appInstance,
-    const std::wstring& appName,
-    const FinalizeExceptionMode finalizeExceptionMode
-) noexcept(true)
+    const HINSTANCE &appInstance,
+    const std::wstring &appName,
+    const FinalizeExceptionMode finalizeExceptionMode) noexcept(true)
 {
-    #pragma comment( \
-        linker, \
-        "\"/manifestdependency:type='win32' \
+#pragma comment(linker, "\"/manifestdependency:type='win32' \
         name='Microsoft.Windows.Common-Controls' \
         version='6.0.0.0' \
         processorArchitecture='*' \
         publicKeyToken='6595b64144ccf1df' \
         language='*'\
         \"")
-    
+
     SetProcessDPIAware();
 
     this->appInstance = appInstance;
@@ -32,57 +28,48 @@ AbstractApplication::AbstractApplication(
 
 int AbstractApplication::start() noexcept(true)
 {
-    try
-    {
+    try {
         return this->run();
     }
-    catch (const std::exception& exc)
-    {
+    catch (const std::exception &exc) {
         this->finalizeException(exc);
         return EXIT_FAILURE;
     }
-    catch (...)
-    {
+    catch (...) {
         auto defaultExc = std::exception("unspecified error");
         this->finalizeException(defaultExc);
         return EXIT_FAILURE;
     }
 }
 
-void AbstractApplication::finalizeException(const std::exception& exc)
-    noexcept(true)
+void AbstractApplication::finalizeException(const std::exception &exc) noexcept(
+    true)
 {
-    switch (this->finalizeExceptionMode)
-    {
+    switch (this->finalizeExceptionMode) {
         case FinalizeExceptionMode::MESSAGE_BOX:
-        {
-            std::wstring errMsg{};
+            {
+                std::wstring errMsg{};
 
-            try {
-                errMsg = std::format(
-                    L"{} crashed: {}",
-                    this->appName,
-                    ansiToWideString(exc.what())
-                );
-            }
-            catch (...) {
-                errMsg = L"unexpected error";
-            }
+                try {
+                    errMsg = std::format(L"{} crashed: {}",
+                                         this->appName,
+                                         ansiToWideString(exc.what()));
+                }
+                catch (...) {
+                    errMsg = L"unexpected error";
+                }
 
-            this->spawnMessageBox(
-                errMsg,
-                MB_OK | MB_ICONERROR);
-            break;
-        }
+                this->spawnMessageBox(errMsg, MB_OK | MB_ICONERROR);
+                break;
+            }
         case FinalizeExceptionMode::NOTHING:
         default:
             break;
     }
 }
 
-UINT AbstractApplication::spawnMessageBox(
-    const std::wstring& text, UINT mode
-) noexcept(true)
+UINT AbstractApplication::spawnMessageBox(const std::wstring &text,
+                                          UINT mode) noexcept(true)
 {
     return MessageBox(this->parentWindow,
                       text.c_str(),

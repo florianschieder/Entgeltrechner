@@ -3,7 +3,6 @@
 
 #include <string>
 
+const std::wstring ansiToWideString(const std::string &ansiStr) noexcept(true);
 
-const std::wstring ansiToWideString(const std::string& ansiStr) noexcept(true);
-
-#endif  // CORE_UTILS_H_
+#endif // CORE_UTILS_H_

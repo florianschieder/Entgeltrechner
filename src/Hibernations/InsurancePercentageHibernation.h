@@ -4,11 +4,10 @@
 #include <cassert>
 #include <optional>
 
-#include "AbstractHibernation.h"
 #include "../Models/InsurancePercentage.h"
+#include "AbstractHibernation.h"
 
 #include <sqlite3/sqlite3.h>
-
 
 struct InsurancePercentageFilters
 {
@@ -17,20 +16,18 @@ struct InsurancePercentageFilters
 };
 
 // TODO boilerplatish sqlite3 code. outsourcing + unit tests
-class InsurancePercentageHibernation
-    : public AbstractHibernation<InsurancePercentage,
-                                 InsurancePercentageFilters>
+class InsurancePercentageHibernation :
+    public AbstractHibernation<InsurancePercentage, InsurancePercentageFilters>
 {
 public:
-    InsurancePercentageHibernation(sqlite3* dbHandle)
+    InsurancePercentageHibernation(sqlite3 *dbHandle)
         : AbstractHibernation(dbHandle)
     {
         this->createStructure();
     }
 
     std::vector<InsurancePercentage> loadMany(
-        const InsurancePercentageFilters& filters
-    ) override
+        const InsurancePercentageFilters &filters) override
     {
         const auto baseStmt = "\
             SELECT `type`, `employerShare`, `employeeShare`, `year` \
@@ -40,47 +37,40 @@ public:
         std::string fullStmt;
 
         if (filters.type.has_value() && filters.year.has_value()) {
-            fullStmt = std::format(
-                baseStmt,
-                std::format(
-                    "`type` = {} AND `year` = {}",
-                    static_cast<int>(filters.type.value()),
-                    filters.year.value()
-                )
-            );
+            fullStmt =
+                std::format(baseStmt,
+                            std::format("`type` = {} AND `year` = {}",
+                                        static_cast<int>(filters.type.value()),
+                                        filters.year.value()));
         }
         else if (filters.type.has_value() && !filters.year.has_value()) {
             fullStmt = std::format(
                 baseStmt,
-                std::format(
-                    "`type` = {}",
-                    static_cast<int>(filters.type.value())
-                )
-            );
+                std::format("`type` = {}",
+                            static_cast<int>(filters.type.value())));
         }
         else if (!filters.type.has_value() && filters.year.has_value()) {
-            fullStmt = std::format(
-                baseStmt,
-                std::format("`year` = {}", filters.year.value())
-            );
+            fullStmt =
+                std::format(baseStmt,
+                            std::format("`year` = {}", filters.year.value()));
         }
         else {
             throw InsufficientFiltersException(
-                "requires at least type or year"
-            );
+                "requires at least type or year");
         }
 
-        char* errorMessage = nullptr;
+        char *errorMessage = nullptr;
         std::vector<InsurancePercentage> resultSet;
 
-        // TODO benchmark SELECT COUNT(*) + allocating vs. one-query + push_back()
+        // TODO benchmark SELECT COUNT(*) + allocating vs. one-query +
+        // push_back()
         const auto result = sqlite3_exec(
             this->dbHandle,
             fullStmt.c_str(),
-            [](void* userData, int argc, char** argv, char** azColName) -> int {
-                auto resultSet = static_cast<std::vector<InsurancePercentage>*>(
-                    userData
-                );
+            [](void *userData, int argc, char **argv, char **azColName) -> int
+            {
+                auto resultSet =
+                    static_cast<std::vector<InsurancePercentage> *>(userData);
                 assert(resultSet != nullptr);
                 assert(argv != nullptr);
 
@@ -91,12 +81,11 @@ public:
                     std::atoi(argv[3]),
                 };
                 resultSet->push_back(record);
-                
+
                 return 0;
             },
             &resultSet,
-            &errorMessage
-        );
+            &errorMessage);
 
         if (result != SQLITE_OK) {
             std::string msg(errorMessage);
@@ -108,7 +97,7 @@ public:
         return resultSet;
     }
 
-    void save(const InsurancePercentage& instance) override
+    void save(const InsurancePercentage &instance) override
     {
         const auto baseStmt = "\
         INSERT INTO `insurance_percentage` \
@@ -119,26 +108,21 @@ public:
           `employerShare` = {}, \
           `employeeShare` = {}; \
         ";
-        auto fullStmt = std::format(
-            baseStmt,
-            static_cast<int>(instance.type),
-            instance.employerShare,
-            instance.employeeShare,
-            instance.year,
-            instance.employerShare,
-            instance.employeeShare
-        );
+        auto fullStmt = std::format(baseStmt,
+                                    static_cast<int>(instance.type),
+                                    instance.employerShare,
+                                    instance.employeeShare,
+                                    instance.year,
+                                    instance.employerShare,
+                                    instance.employeeShare);
 
-        char* errorMessage = nullptr;
+        char *errorMessage = nullptr;
         const auto result = sqlite3_exec(
             this->dbHandle,
             fullStmt.c_str(),
-            [](void*, int, char**, char**) -> int {
-                return 0;
-            },
+            [](void *, int, char **, char **) -> int { return 0; },
             NULL,
-            &errorMessage
-        );
+            &errorMessage);
 
         if (result != SQLITE_OK) {
             std::string msg(errorMessage);
@@ -165,16 +149,13 @@ private:
             ); \
         ";
 
-        char* errorMessage = nullptr;
+        char *errorMessage = nullptr;
         const auto result = sqlite3_exec(
             this->dbHandle,
             stmt,
-            [](void*, int, char**, char**) -> int {
-                return 0;
-            },
+            [](void *, int, char **, char **) -> int { return 0; },
             NULL,
-            &errorMessage
-        );
+            &errorMessage);
 
         if (result != SQLITE_OK) {
             std::string msg(errorMessage);
@@ -185,4 +166,4 @@ private:
     }
 };
 
-#endif  // HIBERNATIONS_INSURANCE_PERCENTAGE_H_
+#endif // HIBERNATIONS_INSURANCE_PERCENTAGE_H_
