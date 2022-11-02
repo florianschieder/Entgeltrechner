@@ -1,0 +1,1 @@
+MSBuild.exe -p:Platform=x64 -p:Configuration=Release

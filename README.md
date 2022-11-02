@@ -43,4 +43,8 @@ Bei den aufgeführten Methoden handelt es sich lediglich um die häufigst verwen
 
 ### Ausführen der Tests, Projektorganisation
 
-...Fortsetzung folgt!
+- Das Projekt wird über GitHub Projects verwaltet: [Board für V1-Implementierung](https://github.com/users/florianschieder/projects/1/views/1?layout=board)
+- Um die Tests auszuführen, sind folgende Schritte notwendig:
+  - `tools/build.bat` ausführen
+  - `tools/run-tests.bat` ausführen
+  - Damit alle Visual Studio-Tools sich im Systempfad befinden, ist es ratsam, eine "Developer Command Prompt" zu starten. Diese findet sich in der Regel im Startmenü unter "Visual Studio 2019".
