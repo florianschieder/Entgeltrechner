@@ -1,1 +1,0 @@
-vstest.console.exe tests/bin/Release/x64/tests.dll

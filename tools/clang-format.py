@@ -1,5 +1,7 @@
 from glob import glob
-from sys import argv
+from os import chdir
+from os.path import dirname, join
+from sys import argv, exit
 from xml.etree import ElementTree
 
 from subprocess import run, PIPE
@@ -17,6 +19,8 @@ def _reformat_file(path):
 
 
 if __name__ == "__main__":
+    chdir(join(dirname(__file__), ".."))
+
     source_files = [
         *glob("src/**/*.cpp", recursive=True),
         *glob("src/**/*.hpp", recursive=True),
@@ -29,6 +33,7 @@ if __name__ == "__main__":
     ]
 
     dry_run = "--dry-run" in argv
+    faulty_files = False
 
     for source_file in source_files:
         stdout = run(
@@ -42,5 +47,9 @@ if __name__ == "__main__":
         if len(children) > 0:
             if dry_run:
                 print(f"would reformat {source_file}")
+                faulty_files = True
             else:
                 _reformat_file(source_file)
+
+    if faulty_files:
+        exit(1)

@@ -24,6 +24,9 @@ jobs:
     
     - name: Installing VSTest
       uses: darenm/Setup-VSTest@v1.2
+      
+    - name: Installing Python
+      uses: actions/setup-python@v4.3.0
     
     - name: Building
       working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -31,4 +34,4 @@ jobs:
           
     - name: Running tests
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: tools/run-tests.bat
+      run: python tools/run-tests.py
