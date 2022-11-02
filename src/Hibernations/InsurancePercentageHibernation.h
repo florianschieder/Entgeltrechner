@@ -5,7 +5,7 @@
 #include <optional>
 
 #include "../Models/InsurancePercentage.h"
-#include "AbstractHibernation.h"
+#include "AbstractDBHibernation.h"
 
 #include <sqlite3/sqlite3.h>
 
@@ -17,11 +17,12 @@ struct InsurancePercentageFilters
 
 // TODO boilerplatish sqlite3 code. outsourcing + unit tests
 class InsurancePercentageHibernation :
-    public AbstractHibernation<InsurancePercentage, InsurancePercentageFilters>
+    public AbstractDBHibernation<InsurancePercentage,
+                                 InsurancePercentageFilters>
 {
 public:
     InsurancePercentageHibernation(sqlite3 *dbHandle)
-        : AbstractHibernation(dbHandle)
+        : AbstractDBHibernation(dbHandle)
     {
         this->createStructure();
     }

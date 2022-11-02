@@ -51,7 +51,7 @@
     <ClInclude Include="src\Models\InsurancePercentage.h">
       <Filter>Models</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hibernations\AbstractHibernation.h">
+    <ClInclude Include="src\Hibernations\AbstractDBHibernation.h">
       <Filter>Hibernations</Filter>
     </ClInclude>
     <ClInclude Include="src\Hibernations\Exceptions.h">

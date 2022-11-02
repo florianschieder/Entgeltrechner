@@ -9,10 +9,10 @@
 #include "Exceptions.h"
 
 template <typename Model, typename Filters>
-class AbstractHibernation
+class AbstractDBHibernation
 {
 public:
-    AbstractHibernation(sqlite3 *dbHandle) noexcept(true)
+    AbstractDBHibernation(sqlite3 *dbHandle) noexcept(true)
     {
         this->dbHandle = dbHandle;
     }
