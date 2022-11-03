@@ -16,5 +16,13 @@ namespace EntgeltrechnerTests
 
             Assert::AreEqual(expected, actual);
         }
+
+        TEST_METHOD(testWideToAnsiString)
+        {
+            const auto actual = wideToAnsiString(L"foobar");
+            const auto expected = std::string("foobar");
+
+            Assert::AreEqual(expected, actual);
+        }
     };
 }
