@@ -28,6 +28,12 @@
     <ClCompile Include="InsurancePercentageHibernationTests.cpp">
       <Filter>Hibernations</Filter>
     </ClCompile>
+    <ClCompile Include="ConfigTests.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="RegistryTests.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\3rdparty\sqlite3\sqlite3.h">
