@@ -76,3 +76,13 @@ UINT AbstractApplication::spawnMessageBox(const std::wstring &text,
                       this->appName.c_str(),
                       mode);
 }
+
+HINSTANCE AbstractApplication::getAppInstance() noexcept
+{
+    return this->appInstance;
+}
+
+HWND AbstractApplication::getParentWindow() noexcept
+{
+    return this->parentWindow;
+}

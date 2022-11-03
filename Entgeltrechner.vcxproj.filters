@@ -14,6 +14,9 @@
     <Filter Include="Models">
       <UniqueIdentifier>{970305fc-ba31-4817-90ce-9a58929071d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{557ed0ee-ff80-4de1-a4bf-814a5cfa2b98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\ReleaseBuildEntryPoint.cpp">
@@ -36,6 +39,9 @@
     </ClCompile>
     <ClCompile Include="src\Core\Registry.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\Dialog.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +74,9 @@
     </ClInclude>
     <ClInclude Include="src\Core\Registry.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\Dialog.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

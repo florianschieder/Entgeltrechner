@@ -54,6 +54,58 @@ END
 // remains consistent on all systems.
 IDI_APP                 ICON                    "App.ico"
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MAIN_WINDOW DIALOGEX 0, 0, 177, 115
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_WINDOWEDGE
+CAPTION "Entgeltrechner"
+FONT 12, "Segoe UI", 400, 0, 0x0
+BEGIN
+    CTEXT           "Entgeltrechner",IDC_STATIC,7,7,163,8
+    PUSHBUTTON      "Schlieﬂen",IDC_MAIN_WINDOW_EXIT,120,94,50,14
+    PUSHBUTTON      "Einstellungen",IDC_MAIN_WINDOW_SETTINGS,120,76,50,14
+    ICON            IDI_APP,IDI_ICON,7,7,14,12
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_MAIN_WINDOW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 170
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 108
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_MAIN_WINDOW AFX_DIALOG_LAYOUT
+BEGIN
+    0,
+    0, 0, 100, 0,
+    100, 100, 0, 0,
+    100, 100, 0, 0,
+    0, 0, 0, 0
+END
+
 #endif    // Deutsch (Deutschland) resources
 /////////////////////////////////////////////////////////////////////////////
 

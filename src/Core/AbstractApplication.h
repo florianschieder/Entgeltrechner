@@ -20,6 +20,8 @@ public:
         const std::wstring &appName,
         const FinalizeExceptionMode finalizeExceptionMode) noexcept(true);
 
+    HINSTANCE getAppInstance() noexcept;
+    HWND getParentWindow() noexcept;
     UINT spawnMessageBox(const std::wstring &text, UINT mode) noexcept(true);
     int start() noexcept(true);
 
