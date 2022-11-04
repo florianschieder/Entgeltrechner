@@ -13,10 +13,12 @@ namespace EntgeltrechnerTests
     private:
         sqlite3 *dbHandle;
         InsurancePercentageHibernation *hib;
+        _CrtMemState previousState;
 
     public:
         TEST_METHOD_INITIALIZE(setUp)
         {
+            _CrtMemCheckpoint(&this->previousState);
             sqlite3_open(":memory:", &this->dbHandle);
             this->hib = new InsurancePercentageHibernation(this->dbHandle);
 
@@ -54,6 +56,15 @@ namespace EntgeltrechnerTests
         {
             sqlite3_close(this->dbHandle);
             delete this->hib;
+
+            _CrtMemState currentState, stateDiff;
+            _CrtMemCheckpoint(&currentState);
+            int diffResult = _CrtMemDifference(&stateDiff,
+                                               &this->previousState,
+                                               &currentState);
+            if (diffResult) {
+                Assert::Fail(L"memory leak(s) detected.");
+            }
         }
 
         TEST_METHOD(testEmptyResultSet)
