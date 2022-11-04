@@ -12,7 +12,6 @@ RegistryKey::RegistryKey(HKEY root,
     this->subKey = subKey;
 
     constexpr auto accessFlag = KEY_READ | KEY_WRITE;
-
     if (mode == RegistryKeyMode::Create) {
         auto result = RegCreateKeyEx(root,
                                      subKey.c_str(),
@@ -169,9 +168,7 @@ std::string RegistryKey::loadValue(const std::wstring &key,
                 std::format("unexpected error: {}", sizeQueryResult).c_str());
     }
 
-    // TODO das macht memory leaks. irgendeinen analyzer anschalten + fixen.
-    auto buffer = static_cast<char *>(calloc(size, sizeof(char)));
-
+    auto buffer = new char[size];
     const auto dataQueryResult =
         RegQueryValueExA(this->handle,
                          wideToAnsiString(key).c_str(),
@@ -187,7 +184,9 @@ std::string RegistryKey::loadValue(const std::wstring &key,
                 std::format("unexpected error: {}", dataQueryResult).c_str());
     }
 
-    return std::string(buffer);
+    auto str = std::string(buffer);
+    delete[] buffer;
+    return str;
 }
 
 std::wstring RegistryKey::loadValue(const std::wstring &key,
@@ -208,8 +207,7 @@ std::wstring RegistryKey::loadValue(const std::wstring &key,
                 std::format("unexpected error: {}", sizeQueryResult).c_str());
     }
 
-    // TODO das macht memory leaks. irgendeinen analyzer anschalten + fixen.
-    auto buffer = static_cast<wchar_t *>(calloc(size, sizeof(wchar_t)));
+    auto buffer = new wchar_t[size];
 
     const auto dataQueryResult =
         RegQueryValueEx(this->handle,
@@ -226,5 +224,7 @@ std::wstring RegistryKey::loadValue(const std::wstring &key,
                 std::format("unexpected error: {}", dataQueryResult).c_str());
     }
 
-    return std::wstring(buffer);
+    auto str = std::wstring(buffer);
+    delete[] buffer;
+    return str;
 }
