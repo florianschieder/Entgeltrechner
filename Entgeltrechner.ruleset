@@ -4,5 +4,6 @@
   <Rules AnalyzerId="Microsoft.Analyzers.NativeCodeAnalysis" RuleNamespace="Microsoft.Rules.Native">
     <Rule Id="C26481" Action="None" />
     <Rule Id="C26482" Action="Warning" />
+    <Rule Id="C26490" Action="None" />
   </Rules>
 </RuleSet>
