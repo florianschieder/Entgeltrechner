@@ -94,14 +94,13 @@ void RegistryKey::saveValue(const std::wstring &key, __int64 value)
 
 void RegistryKey::saveValue(const std::wstring &key, const std::string &value)
 {
-    const auto result = RegSetValueExA(this->handle,
-                                       wideToAnsiString(key).c_str(),
-                                       0,
-                                       REG_SZ,
-                                       reinterpret_cast<BYTE *>(
-                                           const_cast<char *>(value.c_str())
-                                       ),
-                                       static_cast<DWORD>(value.size()));
+    const auto result = RegSetValueExA(
+        this->handle,
+        wideToAnsiString(key).c_str(),
+        0,
+        REG_SZ,
+        reinterpret_cast<BYTE *>(const_cast<char *>(value.c_str())),
+        static_cast<DWORD>(value.size()));
 
     if (result != ERROR_SUCCESS) {
         throw std::exception(
@@ -112,14 +111,13 @@ void RegistryKey::saveValue(const std::wstring &key, const std::string &value)
 void RegistryKey::saveValue(const std::wstring &key, const std::wstring &value)
 {
     const size_t size = sizeof(wchar_t) * value.size();
-    const auto result = RegSetValueEx(this->handle,
-                                      key.c_str(),
-                                      0,
-                                      REG_SZ,
-                                      reinterpret_cast<BYTE *>(
-                                          const_cast<wchar_t *>(value.c_str())
-                                      ),
-                                      static_cast<DWORD>(size));
+    const auto result = RegSetValueEx(
+        this->handle,
+        key.c_str(),
+        0,
+        REG_SZ,
+        reinterpret_cast<BYTE *>(const_cast<wchar_t *>(value.c_str())),
+        static_cast<DWORD>(size));
     if (result != ERROR_SUCCESS) {
         throw std::exception(
             std::format("unexpected error: {}", result).c_str());
