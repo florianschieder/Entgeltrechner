@@ -150,49 +150,81 @@ long RegistryKey::loadValue(const std::wstring &key,
 std::string RegistryKey::loadValue(const std::wstring &key,
                                    const std::string &defaultValue) const
 {
-    constexpr auto bufferSize = 2048; // TODO besser machen
-    char buffer[bufferSize]{};
-    auto size = bufferSize * sizeof(char);
+    DWORD size{};
 
-    const auto result = RegQueryValueExA(this->handle,
-                                         wideToAnsiString(key).c_str(),
-                                         0,
-                                         NULL,
-                                         reinterpret_cast<LPBYTE>(&buffer),
-                                         reinterpret_cast<LPDWORD>(&size));
-    switch (result) {
+    const auto sizeQueryResult = RegQueryValueExA(this->handle,
+                                                  wideToAnsiString(key).c_str(),
+                                                  0,
+                                                  NULL,
+                                                  NULL,
+                                                  &size);
+
+    switch (sizeQueryResult) {
         case ERROR_SUCCESS:
             break;
         case ERROR_FILE_NOT_FOUND:
             return defaultValue;
         default:
             throw std::exception(
-                std::format("unexpected error: {}", result).c_str());
+                std::format("unexpected error: {}", sizeQueryResult).c_str());
     }
+
+    // TODO das macht memory leaks. irgendeinen analyzer anschalten + fixen.
+    auto buffer = static_cast<char *>(calloc(size, sizeof(char)));
+
+    const auto dataQueryResult =
+        RegQueryValueExA(this->handle,
+                         wideToAnsiString(key).c_str(),
+                         0,
+                         NULL,
+                         reinterpret_cast<LPBYTE>(buffer),
+                         &size);
+    switch (dataQueryResult) {
+        case ERROR_SUCCESS:
+            break;
+        default:
+            throw std::exception(
+                std::format("unexpected error: {}", dataQueryResult).c_str());
+    }
+
     return std::string(buffer);
 }
 
 std::wstring RegistryKey::loadValue(const std::wstring &key,
                                     const std::wstring &defaultValue) const
 {
-    constexpr auto bufferSize = 2048; // TODO besser machen
-    wchar_t buffer[bufferSize]{};
-    auto size = bufferSize * sizeof(wchar_t);
+    DWORD size{};
 
-    const auto result = RegQueryValueEx(this->handle,
-                                        key.c_str(),
-                                        0,
-                                        NULL,
-                                        reinterpret_cast<LPBYTE>(&buffer),
-                                        reinterpret_cast<LPDWORD>(&size));
-    switch (result) {
+    const auto sizeQueryResult =
+        RegQueryValueEx(this->handle, key.c_str(), 0, NULL, NULL, &size);
+
+    switch (sizeQueryResult) {
         case ERROR_SUCCESS:
             break;
         case ERROR_FILE_NOT_FOUND:
             return defaultValue;
         default:
             throw std::exception(
-                std::format("unexpected error: {}", result).c_str());
+                std::format("unexpected error: {}", sizeQueryResult).c_str());
     }
+
+    // TODO das macht memory leaks. irgendeinen analyzer anschalten + fixen.
+    auto buffer = static_cast<wchar_t *>(calloc(size, sizeof(wchar_t)));
+
+    const auto dataQueryResult =
+        RegQueryValueEx(this->handle,
+                        key.c_str(),
+                        0,
+                        NULL,
+                        reinterpret_cast<LPBYTE>(buffer),
+                        &size);
+    switch (dataQueryResult) {
+        case ERROR_SUCCESS:
+            break;
+        default:
+            throw std::exception(
+                std::format("unexpected error: {}", dataQueryResult).c_str());
+    }
+
     return std::wstring(buffer);
 }
