@@ -46,6 +46,12 @@
     <ClCompile Include="src\UI\StartDialog.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\UI\SettingsDialog.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\CommonDialogs.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\AbstractApplication.h">
@@ -82,6 +88,12 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="src\UI\StartDialog.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\SettingsDialog.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\CommonDialogs.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>

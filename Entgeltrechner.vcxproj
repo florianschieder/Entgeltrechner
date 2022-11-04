@@ -189,6 +189,8 @@
     <ClCompile Include="src\Core\Utils.cpp" />
     <ClCompile Include="src\Core\Registry.cpp" />
     <ClCompile Include="src\UI\AbstractDialog.cpp" />
+    <ClCompile Include="src\UI\CommonDialogs.cpp" />
+    <ClCompile Include="src\UI\SettingsDialog.cpp" />
     <ClCompile Include="src\UI\StartDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +205,8 @@
     <ClInclude Include="src\Core\EntgeltrechnerApplication.h" />
     <ClInclude Include="src\Core\Utils.h" />
     <ClInclude Include="src\UI\AbstractDialog.h" />
+    <ClInclude Include="src\UI\CommonDialogs.h" />
+    <ClInclude Include="src\UI\SettingsDialog.h" />
     <ClInclude Include="src\UI\StartDialog.h" />
   </ItemGroup>
   <ItemGroup>

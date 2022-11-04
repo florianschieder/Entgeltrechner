@@ -72,6 +72,20 @@ BEGIN
     ICON            IDI_APP,IDI_ICON,7,7,14,12
 END
 
+IDD_SETTINGS DIALOGEX 0, 0, 247, 121
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Einstellungen"
+FONT 12, "Segoe UI", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,136,100,50,14
+    PUSHBUTTON      "Abbrechen",IDCANCEL,190,100,50,14
+    CTEXT           "Einstellungen",IDC_STATIC,7,7,233,8
+    GROUPBOX        "Allgemein",IDC_STATIC,7,24,233,39
+    LTEXT           "Speicherort der Datenbank",IDC_STATIC,12,36,84,8
+    EDITTEXT        IDC_SETTINGS_DB_PATH,12,48,204,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_SETTINGS_CHOOSE_DB_PATH,222,48,14,12
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -88,6 +102,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 108
     END
+
+    IDD_SETTINGS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 240
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 114
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -103,6 +125,18 @@ BEGIN
     0, 0, 100, 0,
     100, 100, 0, 0,
     100, 100, 0, 0,
+    0, 0, 0, 0
+END
+
+IDD_SETTINGS AFX_DIALOG_LAYOUT
+BEGIN
+    0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 100, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
     0, 0, 0, 0
 END
 

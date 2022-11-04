@@ -16,8 +16,13 @@ void AbstractDialog::show() const noexcept
         {
             switch (uMsg) {
                 case WM_INITDIALOG:
-                    SetWindowLongPtr(hDlg, GWLP_USERDATA, lParam);
-                    break;
+                    {
+                        SetWindowLongPtr(hDlg, GWLP_USERDATA, lParam);
+                        auto *dialog =
+                            reinterpret_cast<AbstractDialog *>(lParam);
+                        dialog->onInit(hDlg);
+                        break;
+                    }
                 case WM_COMMAND:
                     {
                         auto *dialog = reinterpret_cast<AbstractDialog *>(
