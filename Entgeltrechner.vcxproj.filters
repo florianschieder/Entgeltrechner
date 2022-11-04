@@ -40,7 +40,10 @@
     <ClCompile Include="src\Core\Registry.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\UI\Dialog.cpp">
+    <ClCompile Include="src\UI\AbstractDialog.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI\StartDialog.cpp">
       <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -75,7 +78,10 @@
     <ClInclude Include="src\Core\Registry.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\UI\Dialog.h">
+    <ClInclude Include="src\UI\AbstractDialog.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\StartDialog.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>

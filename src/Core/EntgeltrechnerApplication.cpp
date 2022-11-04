@@ -3,7 +3,7 @@
 
 #include "../../assets/resource.h"
 #include "../Hibernations/InsurancePercentageHibernation.h"
-#include "../UI/Dialog.h"
+#include "../UI/StartDialog.h"
 #include "EntgeltrechnerApplication.h"
 
 // TODO irgendwo anders hin damit, wenn die SQLite-Aufrufe vernünftig
@@ -36,7 +36,7 @@ EntgeltrechnerApplication::EntgeltrechnerApplication(const HINSTANCE &hInstance)
 
 int EntgeltrechnerApplication::run()
 {
-    const Dialog dlg(this, IDD_MAIN_WINDOW);
+    const StartDialog dlg(this);
     dlg.show();
 
     const auto hibernation = InsurancePercentageHibernation(this->dbHandle);

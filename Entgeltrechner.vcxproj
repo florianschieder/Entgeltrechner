@@ -188,7 +188,8 @@
     <ClCompile Include="src\Core\ReleaseBuildEntryPoint.cpp" />
     <ClCompile Include="src\Core\Utils.cpp" />
     <ClCompile Include="src\Core\Registry.cpp" />
-    <ClCompile Include="src\UI\Dialog.cpp" />
+    <ClCompile Include="src\UI\AbstractDialog.cpp" />
+    <ClCompile Include="src\UI\StartDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="assets\resource.h" />
@@ -201,7 +202,8 @@
     <ClInclude Include="src\Core\AbstractApplication.h" />
     <ClInclude Include="src\Core\EntgeltrechnerApplication.h" />
     <ClInclude Include="src\Core\Utils.h" />
-    <ClInclude Include="src\UI\Dialog.h" />
+    <ClInclude Include="src\UI\AbstractDialog.h" />
+    <ClInclude Include="src\UI\StartDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\App.ico" />
