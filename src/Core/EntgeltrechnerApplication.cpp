@@ -4,7 +4,9 @@
 #include "../../assets/resource.h"
 #include "../Hibernations/InsurancePercentageHibernation.h"
 #include "../UI/StartDialog.h"
+#include "Config.h"
 #include "EntgeltrechnerApplication.h"
+#include "Utils.h"
 
 // TODO irgendwo anders hin damit, wenn die SQLite-Aufrufe vernünftig
 // abstrahiert wurden
@@ -24,8 +26,13 @@ EntgeltrechnerApplication::EntgeltrechnerApplication(const HINSTANCE &hInstance)
                           L"Entgeltrechner",
                           FinalizeExceptionMode::MESSAGE_BOX)
 {
-    // TODO: Datenspeicherort konfigurierbar machen
-    const auto result = sqlite3_open("foo.db", &this->dbHandle);
+    // TODO: doppelt zu SettingsDialog, auflösen
+    Config cfg(L"Entgeltrechner", L"Persistence");
+    auto dbPath =
+        cfg.get_config_item(std::wstring(L"dbPath"),
+                            std::wstring(L"C:\\Temp\\Entgeltrechner.db"));
+    const auto result =
+        sqlite3_open(wideToAnsiString(dbPath).c_str(), &this->dbHandle);
 
     if (result != SQLITE_OK) {
         auto exc =
