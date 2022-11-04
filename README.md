@@ -48,3 +48,7 @@ Bei den aufgeführten Methoden handelt es sich lediglich um die häufigst verwen
   - `tools/build.bat` ausführen
   - `tools/run-tests.bat` ausführen
   - Damit alle Visual Studio-Tools sich im Systempfad befinden, ist es ratsam, eine "Developer Command Prompt" zu starten. Diese findet sich in der Regel im Startmenü unter "Visual Studio 2019".
+
+### Hinweise für die Implementierung
+
+In der Datei `DEVELOPMENT.md` befinden sich Fallstricke und Hinweise, die während der Entwicklung / Implementierung hilfreich sein können.
