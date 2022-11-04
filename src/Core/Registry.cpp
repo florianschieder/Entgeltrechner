@@ -127,7 +127,7 @@ void RegistryKey::saveValue(const std::wstring &key, const std::wstring &value)
 long RegistryKey::loadValue(const std::wstring &key,
                             const long &defaultValue) const
 {
-    int value;
+    int value{};
     auto size = sizeof(long);
     const auto result = RegQueryValueEx(this->handle,
                                         key.c_str(),
