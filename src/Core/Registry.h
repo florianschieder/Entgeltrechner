@@ -44,7 +44,7 @@ public:
     void drop();
     void dropValue(const std::wstring &key);
 
-    void saveValue(const std::wstring &key, const long &value);
+    void saveValue(const std::wstring &key, __int64 value);
     void saveValue(const std::wstring &key, const std::string &value);
     void saveValue(const std::wstring &key, const std::wstring &value);
 

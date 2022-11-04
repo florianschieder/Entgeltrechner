@@ -78,13 +78,13 @@ void RegistryKey::dropValue(const std::wstring &key)
     }
 }
 
-void RegistryKey::saveValue(const std::wstring &key, const long &value)
+void RegistryKey::saveValue(const std::wstring &key, __int64 value)
 {
     const auto result = RegSetValueEx(this->handle,
                                       key.c_str(),
                                       0,
                                       REG_DWORD,
-                                      (BYTE *) &value, // TODO C26493!
+                                      reinterpret_cast<BYTE *>(&value),
                                       sizeof(int));
     if (result != ERROR_SUCCESS) {
         throw std::exception(
@@ -98,8 +98,10 @@ void RegistryKey::saveValue(const std::wstring &key, const std::string &value)
                                        wideToAnsiString(key).c_str(),
                                        0,
                                        REG_SZ,
-                                       (BYTE *) value.c_str(), // TODO C26493
-                                       (DWORD) value.size());  // TODO C26493
+                                       reinterpret_cast<BYTE *>(
+                                           const_cast<char *>(value.c_str())
+                                       ),
+                                       static_cast<DWORD>(value.size()));
 
     if (result != ERROR_SUCCESS) {
         throw std::exception(
@@ -114,7 +116,9 @@ void RegistryKey::saveValue(const std::wstring &key, const std::wstring &value)
                                       key.c_str(),
                                       0,
                                       REG_SZ,
-                                      (BYTE *) value.c_str(), // TODO C26493!
+                                      reinterpret_cast<BYTE *>(
+                                          const_cast<wchar_t *>(value.c_str())
+                                      ),
                                       static_cast<DWORD>(size));
     if (result != ERROR_SUCCESS) {
         throw std::exception(
@@ -126,13 +130,13 @@ long RegistryKey::loadValue(const std::wstring &key,
                             const long &defaultValue) const
 {
     int value;
-    constexpr auto size = sizeof(long);
+    auto size = sizeof(long);
     const auto result = RegQueryValueEx(this->handle,
                                         key.c_str(),
                                         0,
                                         NULL,
-                                        (LPBYTE) &value,  // TODO C26493
-                                        (LPDWORD) &size); // TODO C26493
+                                        reinterpret_cast<LPBYTE>(&value),
+                                        reinterpret_cast<LPDWORD>(&size));
     switch (result) {
         case ERROR_SUCCESS:
             break;
@@ -149,15 +153,15 @@ std::string RegistryKey::loadValue(const std::wstring &key,
                                    const std::string &defaultValue) const
 {
     constexpr auto bufferSize = 2048; // TODO besser machen
-    const char buffer[bufferSize]{};
-    constexpr auto size = bufferSize * sizeof(char);
+    char buffer[bufferSize]{};
+    auto size = bufferSize * sizeof(char);
 
     const auto result = RegQueryValueExA(this->handle,
                                          wideToAnsiString(key).c_str(),
                                          0,
                                          NULL,
-                                         (LPBYTE) &buffer, // TODO C26493
-                                         (LPDWORD) &size); // TODO C26493
+                                         reinterpret_cast<LPBYTE>(&buffer),
+                                         reinterpret_cast<LPDWORD>(&size));
     switch (result) {
         case ERROR_SUCCESS:
             break;
@@ -174,15 +178,15 @@ std::wstring RegistryKey::loadValue(const std::wstring &key,
                                     const std::wstring &defaultValue) const
 {
     constexpr auto bufferSize = 2048; // TODO besser machen
-    const wchar_t buffer[bufferSize]{};
-    constexpr auto size = bufferSize * sizeof(char);
+    wchar_t buffer[bufferSize]{};
+    auto size = bufferSize * sizeof(wchar_t);
 
     const auto result = RegQueryValueEx(this->handle,
                                         key.c_str(),
                                         0,
                                         NULL,
-                                        (LPBYTE) &buffer, // TODO C26493
-                                        (LPDWORD) &size); // TODO C26493
+                                        reinterpret_cast<LPBYTE>(&buffer),
+                                        reinterpret_cast<LPDWORD>(&size));
     switch (result) {
         case ERROR_SUCCESS:
             break;
