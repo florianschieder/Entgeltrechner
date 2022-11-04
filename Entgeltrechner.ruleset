@@ -2,6 +2,8 @@
 <RuleSet Name="Regeln für Entgeltrechner" Description="Codeanalyseregeln für Entgeltrechner.vcxproj." ToolsVersion="16.0">
   <IncludeAll Action="Warning" />
   <Rules AnalyzerId="Microsoft.Analyzers.NativeCodeAnalysis" RuleNamespace="Microsoft.Rules.Native">
+    <Rule Id="C26403" Action="None" />
+    <Rule Id="C26409" Action="None" />
     <Rule Id="C26472" Action="None" />
     <Rule Id="C26481" Action="None" />
     <Rule Id="C26482" Action="Warning" />
