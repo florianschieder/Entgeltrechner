@@ -12,7 +12,7 @@ template <typename Model, typename Filters>
 class AbstractDBHibernation
 {
 public:
-    AbstractDBHibernation(sqlite3 *dbHandle) noexcept(true)
+    AbstractDBHibernation(sqlite3 *dbHandle) noexcept
     {
         this->dbHandle = dbHandle;
     }

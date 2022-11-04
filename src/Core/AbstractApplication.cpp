@@ -8,7 +8,7 @@
 AbstractApplication::AbstractApplication(
     const HINSTANCE &appInstance,
     const std::wstring &appName,
-    const FinalizeExceptionMode finalizeExceptionMode) noexcept(true)
+    const FinalizeExceptionMode finalizeExceptionMode) noexcept
 {
 #pragma comment(linker, "\"/manifestdependency:type='win32' \
         name='Microsoft.Windows.Common-Controls' \
@@ -26,7 +26,7 @@ AbstractApplication::AbstractApplication(
     this->parentWindow = GetDesktopWindow();
 }
 
-int AbstractApplication::start() noexcept(true)
+int AbstractApplication::start() noexcept
 {
     try {
         return this->run();
@@ -42,8 +42,7 @@ int AbstractApplication::start() noexcept(true)
     }
 }
 
-void AbstractApplication::finalizeException(const std::exception &exc) noexcept(
-    true)
+void AbstractApplication::finalizeException(const std::exception &exc) noexcept
 {
     switch (this->finalizeExceptionMode) {
         case FinalizeExceptionMode::MESSAGE_BOX:
@@ -69,7 +68,7 @@ void AbstractApplication::finalizeException(const std::exception &exc) noexcept(
 }
 
 UINT AbstractApplication::spawnMessageBox(const std::wstring &text,
-                                          UINT mode) noexcept(true)
+                                          UINT mode) noexcept
 {
     return MessageBox(this->parentWindow,
                       text.c_str(),

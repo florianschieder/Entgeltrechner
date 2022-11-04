@@ -18,17 +18,17 @@ public:
     AbstractApplication(
         const HINSTANCE &appInstance,
         const std::wstring &appName,
-        const FinalizeExceptionMode finalizeExceptionMode) noexcept(true);
+        const FinalizeExceptionMode finalizeExceptionMode) noexcept;
 
     HINSTANCE getAppInstance() noexcept;
     HWND getParentWindow() noexcept;
-    UINT spawnMessageBox(const std::wstring &text, UINT mode) noexcept(true);
-    int start() noexcept(true);
+    UINT spawnMessageBox(const std::wstring &text, UINT mode) noexcept;
+    int start() noexcept;
 
 protected:
-    void finalizeException(const std::exception &exc) noexcept(true);
+    void finalizeException(const std::exception &exc) noexcept;
 
-    virtual int run() noexcept(false) = 0;
+    virtual int run() = 0;
 
 private:
     HINSTANCE appInstance;
