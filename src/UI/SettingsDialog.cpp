@@ -14,9 +14,8 @@ SettingsDialog::SettingsDialog(AbstractApplication *app) noexcept
 
 void SettingsDialog::onInit(HWND hDlg) noexcept
 {
-    // TODO noexcept-Problem auflösen
-    // TODO %UserProfile%\Documents\Entgeltrechner.db
-    // TODO wegabstrahieren
+    // TODO: C:\Temp\... -> %UserProfile%\Documents\Entgeltrechner.db
+    // TODO: duplicate code with EntgeltrechnerApplication
     Config cfg(L"Entgeltrechner", L"Persistence");
     auto dbPath =
         cfg.get_config_item(std::wstring(L"dbPath"),
@@ -36,7 +35,7 @@ void SettingsDialog::onCommand(HWND hDlg,
     switch (control) {
         case IDC_SETTINGS_CHOOSE_DB_PATH:
             {
-                // TODO selber Punkt wie unten
+                // TODO: i18n
                 auto dbPath = CommonDialogs::saveFileDialog(
                     hDlg,
                     L"Speicherort für Datenbank auswählen",
@@ -55,7 +54,7 @@ void SettingsDialog::onCommand(HWND hDlg,
                 EndDialog(hDlg, 0);
             }
             catch (const std::exception &e) {
-                // TODO Linter beruhigen, das ist absolut legitim was da steht
+                // TODO: resolve noexcept problems
                 MessageBox(
                     hDlg,
                     std::format(L"Die Einstellungen konnten nicht gespeichert "
@@ -76,8 +75,8 @@ void SettingsDialog::onCommand(HWND hDlg,
 
 void SettingsDialog::persistSettings(HWND hDlg)
 {
-    // TODO Unittests wenn moeglich, pruefen ob sie im GH-Workflow gehen
-    // TODO wegabstrahieren
+    // TODO: implement tests if appropriate (ATTENTION: GitHub Workflow)
+    // TODO: abstract it
     auto dbPathHandle = GetDlgItem(hDlg, IDC_SETTINGS_DB_PATH);
     const auto textLength = GetWindowTextLength(dbPathHandle) + 1;
     auto buffer = new wchar_t[textLength];
@@ -89,11 +88,11 @@ void SettingsDialog::persistSettings(HWND hDlg)
             std::format("unexpected error: {}", lastError).c_str());
     }
 
-    // TODO das macht 2x den RegistryKey auf. Einmal hier und im onInit.
-    // Irgendwo als Member draufschreiben.
+    // TODO: make Config() a member.
     Config cfg(L"Entgeltrechner", L"Persistence");
     cfg.set_config_item(L"dbPath", std::wstring(buffer));
     delete[] buffer;
 
-    // TODO Migration: wenn sich der Pfad geändert hat -> Datei kopieren!
+    // TODO: Check for valid path or prevent changing the edit box!
+    // TODO: Copy the file if the path has changed!
 }

@@ -14,7 +14,7 @@ struct InsurancePercentageFilters
     std::optional<InsuranceType> type;
 };
 
-// TODO boilerplatish sqlite3 code. outsourcing + unit tests
+// TODO: abstract SQLite calls, implement tests
 class InsurancePercentageHibernation :
     public AbstractDBHibernation<InsurancePercentage,
                                  InsurancePercentageFilters>
@@ -62,8 +62,6 @@ public:
         char *errorMessage = nullptr;
         std::vector<InsurancePercentage> resultSet;
 
-        // TODO benchmark SELECT COUNT(*) + allocating vs. one-query +
-        // push_back()
         const auto result = sqlite3_exec(
             this->dbHandle,
             fullStmt.c_str(),

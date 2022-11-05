@@ -8,8 +8,7 @@
 #include "EntgeltrechnerApplication.h"
 #include "Utils.h"
 
-// TODO irgendwo anders hin damit, wenn die SQLite-Aufrufe vernünftig
-// abstrahiert wurden
+// TODO: move somewhere else after SQLite calls have been abstracted
 class CouldNotOpenSQLiteDatabaseException : public std::exception
 {
 public:
@@ -26,7 +25,7 @@ EntgeltrechnerApplication::EntgeltrechnerApplication(const HINSTANCE &hInstance)
                           L"Entgeltrechner",
                           FinalizeExceptionMode::MESSAGE_BOX)
 {
-    // TODO: doppelt zu SettingsDialog, auflösen
+    // TODO: resolve duplicate code to SettingsDialog
     Config cfg(L"Entgeltrechner", L"Persistence");
     auto dbPath =
         cfg.get_config_item(std::wstring(L"dbPath"),
