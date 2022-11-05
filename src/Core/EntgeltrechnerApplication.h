@@ -1,5 +1,4 @@
-#ifndef CORE_ENTGELTRECHNER_APPLICATION_H
-#define CORE_ENTGELTRECHNER_APPLICATION_H
+#pragma once
 
 #include <memory>
 
@@ -16,5 +15,3 @@ public:
 private:
     sqlite3 *dbHandle;
 };
-
-#endif // CORE_ENTGELTRECHNER_APPLICATION_H

@@ -1,5 +1,4 @@
-#ifndef HIBERNATIONS_INSURANCE_PERCENTAGE_H_
-#define HIBERNATIONS_INSURANCE_PERCENTAGE_H_
+#pragma once
 
 #include <cassert>
 #include <optional>
@@ -166,5 +165,3 @@ private:
         }
     }
 };
-
-#endif // HIBERNATIONS_INSURANCE_PERCENTAGE_H_

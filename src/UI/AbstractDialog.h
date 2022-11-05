@@ -1,5 +1,4 @@
-#ifndef UI_ABSTRACTDIALOG_H_
-#define UI_ABSTRACTDIALOG_H_
+#pragma once
 
 #include "../Core/AbstractApplication.h"
 
@@ -19,5 +18,3 @@ protected:
     AbstractApplication *app;
     int dialogId;
 };
-
-#endif // UI_ABSTRACTDIALOG_H_

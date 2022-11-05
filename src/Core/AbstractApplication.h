@@ -1,5 +1,4 @@
-#ifndef CORE_ABSTRACT_APPLICATION_H_
-#define CORE_ABSTRACT_APPLICATION_H_
+#pragma once
 
 #include <exception>
 #include <string>
@@ -36,5 +35,3 @@ private:
     FinalizeExceptionMode finalizeExceptionMode;
     HWND parentWindow;
 };
-
-#endif // CORE_ABSTRACT_APPLICATION_H_

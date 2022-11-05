@@ -1,5 +1,4 @@
-#ifndef HIBERNATIONS_ABSTRACT_HIBERNATION_H_
-#define HIBERNATIONS_ABSTRACT_HIBERNATION_H_
+#pragma once
 
 #include <format>
 #include <vector>
@@ -31,5 +30,3 @@ public:
 protected:
     sqlite3 *dbHandle;
 };
-
-#endif // HIBERNATIONS_ABSTRACT_HIBERNATION_H_

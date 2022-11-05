@@ -1,5 +1,4 @@
-#ifndef HIBERNATIONS_EXCEPTIONS_H
-#define HIBERNATIONS_EXCEPTIONS_H
+#pragma once
 
 #include <exception>
 #include <format>
@@ -24,5 +23,3 @@ public:
     {
     }
 };
-
-#endif // HIBERNATIONS_EXCEPTIONS_H

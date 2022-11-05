@@ -1,5 +1,4 @@
-#ifndef CORE_CONFIG_H_
-#define CORE_CONFIG_H_
+#pragma once
 
 #include <memory>
 #include <string>
@@ -28,5 +27,3 @@ public:
 private:
     std::unique_ptr<RegistryKey> key;
 };
-
-#endif // CORE_CONFIG_H_
