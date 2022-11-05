@@ -33,3 +33,15 @@ Um zu erkennen, wo genau ein Memory Leak sich befindet, helfen die folgenden Too
 - "Diagnosetools" (Visual-Studio-Bordmittel)
 - Erweiterungen, z. B. WonderLeak oder Deleaker
 - Spezialprogramme wie valgrind oder Dr. Memory
+
+## Konventionen
+
+### Kommentare
+
+- TODO-Kommentare sind während Entwicklungsphasen durchaus sinnvoll. Enthalten Änderungen, welche für den Produktivgang bereit sind, noch TODO-Kommentare, ist das stets zu hinterfragen.
+- Kommentare sind auf Englisch zu verfassen.
+
+### Include-Guards
+
+- [Was sind Include-Guards?](https://www.geeksforgeeks.org/include-guards-in-c/)
+- Da wir ohnehin auf Visual Studio angewiesen sind, lösen wir das per `#pragma once`.
